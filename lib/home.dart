@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   Map<int, List<int>>shares = {};
   SecretScheme ss = new SecretScheme(5, 3);
-  Map<int, List<int>>someshares = {73: [26, 20, 87, 20, 25, 133, 37, 57, 171, 86, 241, 164, 31, 60, 191, 169, 141, 62, 13], 161: [221, 212, 158, 94, 212, 22, 248, 7, 81, 177, 197, 191, 23, 58, 81, 130, 180, 124, 237], 99: [106, 10, 241, 195, 179, 213, 247, 143, 25, 179, 72, 196, 46, 50, 73, 152, 172, 65, 96], 229: [88, 137, 185, 80, 224, 232, 212, 73, 183, 253, 178, 206, 111, 94, 132, 93, 125, 37, 71]};
+  Map<int, List<int>>someshares = {};
   
 
 void secret() {

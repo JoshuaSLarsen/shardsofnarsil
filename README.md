@@ -1,16 +1,12 @@
 # shardsofnarsil
 
-A new Flutter project.
+testing ssss
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Home.dart
+*Line 18 put in a string code, then it is encoded into bytes, using dart:convert
+*Line 21 it generates shards, and puts them into state.
+*Line 13 defines the SSS scheme, the first argument is how many pieces up to 255,(uses GF(256)) the second argument is how many pieces are needed to reforge the key
+*the bottom right button on the app will run the function secret() which will do all of the above and print to terminal
+*the button on the top will take in the variable some shares, which is an key value pair array that contains the minimum set up in line 13. if the minimum is met it is printed to terminal and decoded back into a string.
