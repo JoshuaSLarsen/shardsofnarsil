@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './keybuilder.dart';
 import './qrgenerator.dart';
+import './qrcamera.dart';
 
 class Home extends StatelessWidget {
 
@@ -34,6 +35,16 @@ class Home extends StatelessWidget {
                 },
               child: Text(
                 'QR Builder',
+                style: TextStyle(fontSize: 20)
+              ),
+            ),
+             RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrCamera())
+                );
+                },
+              child: Text(
+                'QR Camera',
                 style: TextStyle(fontSize: 20)
               ),
             ),
