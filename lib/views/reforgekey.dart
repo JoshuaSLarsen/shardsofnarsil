@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+
 
 class ReforgeKey extends StatelessWidget {
-
+  
+  void chicken() {
+    print('chcken');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +15,10 @@ class ReforgeKey extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("Reforge"),
+            FlatButton(
+              onPressed: chicken,
+              child: Text('hello')
+            ),
          ]
         )
       )

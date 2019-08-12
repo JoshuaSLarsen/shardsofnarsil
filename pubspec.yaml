@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   dart_ssss: ^0.0.5
   qr_flutter: ^2.1.0+55
+  qr_code_scanner: ^0.0.12
 
 dev_dependencies:
   flutter_test:
