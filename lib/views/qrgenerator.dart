@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import '../util/shard.dart';
 
 class QrGenerator extends StatelessWidget {
+  final Shard code;
+
+  QrGenerator({Key key, @required this.code}) : super(key: key);
 
 
   @override
@@ -15,9 +19,9 @@ class QrGenerator extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("www.google.com"),
+            Text(code.shard),
             QrImage(
-              data: "www.google.com",
+              data: code.shard,
               size: 200.0,
             ),
       
