@@ -4,13 +4,13 @@ import 'dart:convert';
 import './qrgenerator.dart';
 import '../util/shard.dart';
 
-class KeyBuilder extends StatefulWidget {
-  KeyBuilder();
+class ShardBuilder extends StatefulWidget {
+  ShardBuilder();
   @override
-  KeyBuilderState createState() => KeyBuilderState();
+  ShardBuilderState createState() => ShardBuilderState();
 }
 
-class KeyBuilderState extends State<KeyBuilder> {
+class ShardBuilderState extends State<ShardBuilder> {
   Map<int, List<int>>shares = {};
   SecretScheme ss = new SecretScheme(5, 3);
   Map<int, List<int>>someshares = {};
@@ -75,19 +75,6 @@ void reforge() {
   Widget build(BuildContext context) {
       // print(armies);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF244A26),
-        title: Text(
-          'Shards of Narsil',
-            style: TextStyle(
-              fontStyle: FontStyle.italic, 
-              color: Colors.black.withOpacity(1.0),
-              fontFamily: 'Papyrus',
-              fontSize: 30,
-              fontWeight: FontWeight.w800,
-            ),
-        ),
-      ),
       body: Center(
         child: Column(
           children: <Widget>[

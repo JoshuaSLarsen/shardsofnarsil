@@ -12,7 +12,7 @@ class QrGenerator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Builder'),
+        title: Text('QR Code'),
         backgroundColor: Color(0xFF244A26),
       ),
       body: Center(
