@@ -126,7 +126,11 @@ void reforge() {
               ),
             ),
                 TextField(
-                onChanged: createShards,
+                onChanged: (input) {
+                setState((){
+                  codeInput = input;
+                });
+                },
                 decoration: new InputDecoration(contentPadding: EdgeInsets.all(20))
               ),
               ],)
