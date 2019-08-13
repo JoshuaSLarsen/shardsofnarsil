@@ -12,23 +12,10 @@ class ReforgeKey extends StatefulWidget {
 class _ReforgeKeyState extends State<ReforgeKey> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   var qrText = '';
-  var qrArray = [];
+  var secret = '';
   QRViewController controller;
   SecretScheme ss  = SecretScheme(5, 3);
   Map<int, List<int>>shares = {};
-
-  
-  void chicken() {
-    print('chcken');
-  }
-
-  void reforge() {
-    List<int> recombinedSecretInBytes = ss.combineShares(shares);
-    final reforgedsecret = utf8.decode(recombinedSecretInBytes);
-    print('The Flame of the West has been forged');
-    print(recombinedSecretInBytes);
-    print(reforgedsecret);
-  }
 
   void _onQRViewCreated(QRViewController controller) async 
   {
@@ -47,6 +34,25 @@ class _ReforgeKeyState extends State<ReforgeKey> {
     });
   }
 
+  scanSuccessful() {
+    didUpdateWidget(ReforgeKey());
+    if (qrText != '') {
+    return 'Scan Successful!\n ${shares.length} Shards have been collected.';
+    }
+    else {
+      return 'Please Scan a Qr Code';
+    }
+  }
+
+  void reforge() {
+    List<int> recombinedSecretInBytes = ss.combineShares(shares);
+    final reforgedsecret = utf8.decode(recombinedSecretInBytes);
+    setState((){
+      secret = reforgedsecret;
+    });
+    print('The Flame of the West has been forged');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +63,7 @@ class _ReforgeKeyState extends State<ReforgeKey> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(40),
-                child: Text(qrText),
+                child: Text(scanSuccessful()),
             ),
             Expanded(
               flex: 5,
@@ -65,6 +71,10 @@ class _ReforgeKeyState extends State<ReforgeKey> {
                 key: qrKey,
                 onQRViewCreated: _onQRViewCreated
               ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(40),
+                child: Text(secret),
             ),
             Expanded(
               child: Column(children: <Widget>[
