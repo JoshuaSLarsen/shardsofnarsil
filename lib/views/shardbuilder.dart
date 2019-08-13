@@ -20,6 +20,13 @@ class ShardBuilderState extends State<ShardBuilder> {
   int shardTotal = 5;
   int threshold = 3;
 
+void createShards(input)  {
+  setState((){
+    codeInput = input; ss  = SecretScheme(shardTotal, threshold);
+  });
+  print('stuff');
+} 
+
 iterateMapEntry(key, value) {
   shares[key] = value;
   ('$key:$value').toString();//string interpolation in action
@@ -126,11 +133,7 @@ void reforge() {
               ),
             ),
                 TextField(
-                onChanged: (input) {
-                setState((){
-                  codeInput = input;
-                });
-                },
+                onChanged: createShards,
                 decoration: new InputDecoration(contentPadding: EdgeInsets.all(20))
               ),
               ],)
