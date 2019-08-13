@@ -24,7 +24,6 @@ void createShards(input)  {
   setState((){
     codeInput = input; ss  = SecretScheme(shardTotal, threshold);
   });
-  print('stuff');
 } 
 
 iterateMapEntry(key, value) {
@@ -40,40 +39,7 @@ void generateQRCode(key, value) {
 void secret() {
     List<int> secretcode = utf8.encode(codeInput);
     List<int> secretInByteValues = secretcode;
-        
     setState((){shares = ss.createShares(secretInByteValues);});
-    List<int> recombinedSecretInBytes = ss.combineShares(shares);
-
-  
-
-    print('secretcode');
-    print(secretcode);
-    print('');
-
-    print("Secret");
-    print(secretInByteValues);
-    print("");
-
-    print("ss");
-    print(ss);
-    print("");
-
-    print("Each Share");
-    shares.forEach(iterateMapEntry);
-    print("");
-
-    print("Shares in an array");
-    print(shares);
-    print("");
-
-}
-
-void reforge() {
-  List<int> recombinedSecretInBytes = ss.combineShares(someshares);
-  final reforgedsecret = utf8.decode(recombinedSecretInBytes);
-  print('The Flame of the West has been forged');
-  print(recombinedSecretInBytes);
-  print(reforgedsecret);
 }
 
   Widget build(BuildContext context) {

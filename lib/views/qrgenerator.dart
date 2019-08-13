@@ -7,7 +7,6 @@ class QrGenerator extends StatelessWidget {
 
   QrGenerator({Key key, @required this.shard}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
