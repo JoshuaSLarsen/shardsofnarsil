@@ -18,16 +18,14 @@ class QrGenerator extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(shard.key + ': ' + shard.value),
             QrImage(
               data: shard.key + ': ' + shard.value,
-              size: 200.0,
+              size: 300.0,
+              version: 21
             ),
-      
          ]
         )
       )
     );
-
   }
 }

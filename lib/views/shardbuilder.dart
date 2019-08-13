@@ -153,7 +153,6 @@ void secret() {
                             Icons.add_circle,
                             color: Colors.green[600],
                             size: 30,  
-                            
                           )
                         ),
                       ],
