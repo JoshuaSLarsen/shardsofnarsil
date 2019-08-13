@@ -14,7 +14,7 @@ class _ReforgeKeyState extends State<ReforgeKey> {
   var qrText = '';
   var secret = '';
   QRViewController controller;
-  SecretScheme ss  = SecretScheme(5, 3);
+  SecretScheme ss  = SecretScheme(5, 2);
   Map<int, List<int>>shares = {};
 
   void _onQRViewCreated(QRViewController controller) async 

@@ -19,6 +19,7 @@ class ShardBuilderState extends State<ShardBuilder> {
   String codeInput = '';
   int shardTotal = 5;
   int threshold = 3;
+  var numberIndex = List<int>.generate(250, (int index) => index); // [ 0, 1, ... 249, 250]
 
 void createShards(input)  {
   setState((){
@@ -41,6 +42,15 @@ void secret() {
     List<int> secretInByteValues = secretcode;
     setState((){shares = ss.createShares(secretInByteValues);});
 }
+
+// strikeThrough() {
+//   if () {
+
+//   }
+//   else {
+
+//   }
+// }
 
   Widget build(BuildContext context) {
       // print(armies);
@@ -115,16 +125,14 @@ void secret() {
                   itemBuilder: (BuildContext context, int index){
                     int key = shares.keys.elementAt(index);
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(10, 10, 1, 10),
-                        child: Text('${key} : ',
-                          )
+                          padding: EdgeInsets.all(10),
+                          child: Text('Shard($key)')
                         ),
                         Padding(
-                          padding: EdgeInsets.all(0),
-                        child: Text('${shares[key]}')
+                          padding: EdgeInsets.fromLTRB(90, 10, 10, 0),
                         ),
                         FlatButton(
                           onPressed: () {
@@ -134,6 +142,18 @@ void secret() {
                             Icons.photo_camera,
                             color: Colors.green[600],
                             size: 30,
+                          )
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            generateQRCode(key.toString(), shares[key].toString());
+                          },
+                          
+                          child: Icon(
+                            Icons.add_circle,
+                            color: Colors.green[600],
+                            size: 30,  
+                            
                           )
                         ),
                       ],
