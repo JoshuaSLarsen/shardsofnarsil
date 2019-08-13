@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
               fontWeight: FontWeight.w800,
             ),
         ),
-        backgroundColor: Color(0xFF244A26),
+        backgroundColor: Colors.green[900],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [

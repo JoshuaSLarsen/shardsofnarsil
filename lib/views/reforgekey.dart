@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'dart:io';
+import 'package:dart_ssss/dart_ssss.dart';
+import 'dart:convert';
+
 
 class ReforgeKey extends StatefulWidget {
   @override
@@ -12,9 +14,20 @@ class _ReforgeKeyState extends State<ReforgeKey> {
   var qrText = '';
   var qrArray = [];
   QRViewController controller;
+  SecretScheme ss  = SecretScheme(5, 3);
+  Map<int, List<int>>shares = {};
+
   
   void chicken() {
     print('chcken');
+  }
+
+  void reforge() {
+    List<int> recombinedSecretInBytes = ss.combineShares(shares);
+    final reforgedsecret = utf8.decode(recombinedSecretInBytes);
+    print('The Flame of the West has been forged');
+    print(recombinedSecretInBytes);
+    print(reforgedsecret);
   }
 
   void _onQRViewCreated(QRViewController controller) async 
@@ -24,9 +37,12 @@ class _ReforgeKeyState extends State<ReforgeKey> {
       setState(() {
         qrText = scanData;
       });
-      if (!qrArray.contains(scanData)){
-        qrArray.add(scanData);
-        print(qrArray);      
+      var key = qrText.split(":")[0];
+      var value = json.decode(qrText.split(":")[1]).cast<int>();
+
+      if (!shares.containsKey(key)){
+        shares.addAll({int.parse(key): value});
+        print(shares);      
       }
     });
   }
@@ -52,14 +68,22 @@ class _ReforgeKeyState extends State<ReforgeKey> {
             ),
             Expanded(
               child: Column(children: <Widget>[
-                Text("this is the result of scan: $qrText"),
                 FlatButton(
-                  onPressed: null,
-                  child: Text('BUTTON')
-            ),
-              ],)
+                  onPressed: reforge,
+                  color: Colors.green[900],
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  child: Text('Reforge Shards',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Papyrus',
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
             )
-           
+          )
          ]
         )
       )

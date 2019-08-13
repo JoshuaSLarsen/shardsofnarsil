@@ -1,5 +1,6 @@
 class Shard {
-  final String shard;
+  final String key;
+  final String value;
 
-  Shard(this.shard);
+  Shard(this.key, this.value);
 }

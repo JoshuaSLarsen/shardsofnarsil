@@ -32,8 +32,8 @@ iterateMapEntry(key, value) {
   ('$key:$value').toString();//string interpolation in action
 }
 
-void generateQRCode(value) {
-  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrGenerator(code: new Shard(value))));
+void generateQRCode(key, value) {
+  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrGenerator(shard: new Shard(key, value))));
   // print(value);
 }
 
@@ -162,7 +162,7 @@ void reforge() {
                         ),
                         FlatButton(
                           onPressed: () {
-                            generateQRCode(shares[key].toString());
+                            generateQRCode(key.toString(), shares[key].toString());
                           },
                           child: Icon(
                             Icons.photo_camera,
