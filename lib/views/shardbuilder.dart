@@ -11,17 +11,14 @@ class ShardBuilder extends StatefulWidget {
 }
 
 class ShardBuilderState extends State<ShardBuilder> {
+  
   Map<int, List<int>>shares = {};
-  SecretScheme ss = new SecretScheme(5, 3);
+  SecretScheme ss;
   Map<int, List<int>>someshares = {};
   final _formKey = GlobalKey<FormState>();
   String codeInput = '';
-
-void createShards(input)  {
-  setState((){
-    codeInput = input;
-  });
-} 
+  int shardTotal = 5;
+  int threshold = 3;
 
 iterateMapEntry(key, value) {
   shares[key] = value;
@@ -78,9 +75,7 @@ void reforge() {
       body: Center(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 20)),
-            Text('Enter Your Code',
+            Text('Enter Number of Shards',
             style: TextStyle(
               fontStyle: FontStyle.italic, 
               color: Colors.black.withOpacity(1.0),
@@ -91,10 +86,50 @@ void reforge() {
             ),
             Form(
               key: _formKey,
-              child: TextField(
+              child: Column(children: <Widget>[
+                TextField(
+                keyboardType: TextInputType.number,
+                maxLength:3,
+                onChanged: (input) {
+                setState((){
+                  shardTotal = int.parse(input);
+                });
+                },
+                decoration: new InputDecoration(contentPadding: EdgeInsets.all(20)),
+            ),
+             Text('Enter a Threshold',
+            style: TextStyle(
+              fontStyle: FontStyle.italic, 
+              color: Colors.black.withOpacity(1.0),
+              fontFamily: 'Papyrus',
+              fontSize: 15,
+              fontWeight: FontWeight.w800
+              ),
+            ),
+                TextField(
+                keyboardType: TextInputType.number,
+                maxLength:3,
+                onChanged: (input) {
+                setState((){
+                  threshold = int.parse(input);
+                });
+                },
+                decoration: new InputDecoration(contentPadding: EdgeInsets.all(20)),
+            ),
+             Text('Enter Your Code',
+            style: TextStyle(
+              fontStyle: FontStyle.italic, 
+              color: Colors.black.withOpacity(1.0),
+              fontFamily: 'Papyrus',
+              fontSize: 15,
+              fontWeight: FontWeight.w800
+              ),
+            ),
+                TextField(
                 onChanged: createShards,
                 decoration: new InputDecoration(contentPadding: EdgeInsets.all(20))
               ),
+              ],)
             ),
             RaisedButton(
               onPressed: (){
