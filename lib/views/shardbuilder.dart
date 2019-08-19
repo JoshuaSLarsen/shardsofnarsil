@@ -43,15 +43,6 @@ void secret() {
     setState((){shares = ss.createShares(secretInByteValues);});
 }
 
-// strikeThrough() {
-//   if () {
-
-//   }
-//   else {
-
-//   }
-// }
-
   Widget build(BuildContext context) {
       // print(armies);
     return Scaffold(

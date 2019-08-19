@@ -60,34 +60,6 @@ class _HomeState extends State<Home> {
         onTap: _onItemTapped,
       ),
       body: _pageOptions[_selectedIndex],
-      // Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: <Widget>[    
-      //       Text("hello"),
-      //       RaisedButton(
-      //         onPressed: () {
-      //           Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => KeyBuilder())
-      //           );
-      //           },
-      //         child: Text(
-      //           'KeyBuilder',
-      //           style: TextStyle(fontSize: 20)
-      //         ),
-      //       ),
-      //        RaisedButton(
-      //         onPressed: () {
-      //           Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrCamera())
-      //           );
-      //           },
-      //         child: Text(
-      //           'QR Camera',
-      //           style: TextStyle(fontSize: 20)
-      //         ),
-      //       ),
-      //    ]
-      //   )
-      // ),
     );
 
   }

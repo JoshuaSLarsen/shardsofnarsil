@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import './qrcamera.dart';
 
 
 class MyShards extends StatefulWidget {
@@ -45,6 +45,12 @@ class _MyShardsState extends State<MyShards> {
     getShards();
   }
 
+  openCamera() async {
+    final result = await
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrCamera()));
+    saveShards(result);
+  }
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -62,9 +68,8 @@ class _MyShardsState extends State<MyShards> {
                   }       
                 )
             ),
-            Text(myShards.toString()),
             FlatButton(
-              onPressed: () {saveShards('chicken');
+              onPressed: () {openCamera();
               },
               child: Text('Add Shard')
             ),
@@ -76,20 +81,7 @@ class _MyShardsState extends State<MyShards> {
           ]
       ),
     );
-     
   }
 }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: Center(
-  //       child: Column(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: <Widget>[
-            
-  //        ]
-  //       )
-  //     )
-  //   );
-  // }
+ 
