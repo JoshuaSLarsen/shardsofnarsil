@@ -9,7 +9,7 @@ class MyShards extends StatefulWidget {
 }
 
 class _MyShardsState extends State<MyShards> {
-  var myShards = ['nothing'];
+  var myShards = [];
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _MyShardsState extends State<MyShards> {
     if (prefs.getStringList('shards') != null) {
     setState(() => myShards = prefs.getStringList('shards'));
     } else {
-      setState(() => myShards = ['nothing']);
+      setState(() => myShards = ['You have no shards']);
     }
   }
 
@@ -45,13 +45,23 @@ class _MyShardsState extends State<MyShards> {
     getShards();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: Column(
           children: <Widget>[
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(40.0),
+                itemCount: myShards.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 50,
+                    child: Center(child: Text(myShards[index])),
+                    );
+                  }       
+                )
+            ),
             Text(myShards.toString()),
             FlatButton(
               onPressed: () {saveShards('chicken');
@@ -63,9 +73,23 @@ class _MyShardsState extends State<MyShards> {
               },
               child: Text('Erase All Shards')
             ),
-         ]
-        )
-      )
+          ]
+      ),
     );
+     
   }
 }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: Center(
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: <Widget>[
+            
+  //        ]
+  //       )
+  //     )
+  //   );
+  // }
