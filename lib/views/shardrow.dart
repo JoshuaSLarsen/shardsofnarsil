@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../util/shard.dart';
+import 'qrgenerator.dart';
+
 
 class ShardRow extends StatefulWidget {
   final String name;
@@ -35,6 +38,20 @@ void getShardNames() async {
   print(something);
 }
 
+void generateQRCode(key, value) {
+  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrGenerator(shard: new Shard(key, value))));
+}
+
+getKey() {
+  print(myShards.split(": ")[0]);
+  return myShards.split(": ")[0];
+}
+
+getValue() {
+  print(myShards.split(": ")[1]);
+  return myShards.split(": ")[1];
+}
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -57,7 +74,9 @@ void getShardNames() async {
               )
             ),
             FlatButton(
-              onPressed:getShardNames,
+              onPressed: () {
+                generateQRCode(getKey(), getValue());
+              },
               child: Icon(
                 Icons.photo_camera,
                 color: Colors.green[600],

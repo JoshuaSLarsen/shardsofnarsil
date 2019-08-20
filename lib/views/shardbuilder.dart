@@ -51,7 +51,6 @@ void secret() {
           children: <Widget>[
             Text('Enter Number of Shards',
             style: TextStyle(
-              fontStyle: FontStyle.italic, 
               color: Colors.black.withOpacity(1.0),
               fontFamily: 'Exo 2',
               fontSize: 15,
@@ -73,7 +72,6 @@ void secret() {
             ),
              Text('Enter a Threshold',
             style: TextStyle(
-              fontStyle: FontStyle.italic, 
               color: Colors.black.withOpacity(1.0),
               fontFamily: 'Exo 2',
               fontSize: 15,
@@ -92,7 +90,6 @@ void secret() {
             ),
              Text('Enter Your Code',
             style: TextStyle(
-              fontStyle: FontStyle.italic, 
               color: Colors.black.withOpacity(1.0),
               fontFamily: 'Exo 2',
               fontSize: 15,

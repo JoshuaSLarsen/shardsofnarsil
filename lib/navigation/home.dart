@@ -31,7 +31,6 @@ class _HomeState extends State<Home> {
         title: Text(
           'Shards of Narsil',
             style: TextStyle(
-              fontStyle: FontStyle.italic, 
               color: Colors.white.withOpacity(1.0),
               fontFamily: 'Exo 2',
               fontSize: 30,
