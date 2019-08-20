@@ -38,7 +38,6 @@ class _QrCameraState extends State<QrCamera> {
 
   handleChange(name) {
     setState(() => shardName = name);
-    print(shardName);
   }
 
   nameShard() {

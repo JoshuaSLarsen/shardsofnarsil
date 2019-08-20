@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dart_ssss/dart_ssss.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import './qrgenerator.dart';
 import '../util/shard.dart';
@@ -20,6 +21,9 @@ class ShardBuilderState extends State<ShardBuilder> {
   int shardTotal = 5;
   int threshold = 3;
   var numberIndex = List<int>.generate(250, (int index) => index); // [ 0, 1, ... 249, 250]
+  var qrText = '';
+  var shardName = '';
+
 
 void createShards(input)  {
   setState((){
@@ -41,6 +45,43 @@ void secret() {
     List<int> secretcode = utf8.encode(codeInput);
     List<int> secretInByteValues = secretcode;
     setState((){shares = ss.createShares(secretInByteValues);});
+}
+
+saveShards(shard) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(shard);
+
+    //Set Shard
+    if (prefs.getStringList('shards') != null) {
+      var shards = prefs.getStringList('shards');
+      shards.add(shard[1]);
+      prefs.setStringList('shards', shards);
+    } else {
+      var shards = <String>[shard[1]];
+      prefs.setStringList('shards', shards);
+    }
+
+     //Set Shard Names
+    SharedPreferences shardName = await SharedPreferences.getInstance();
+
+    if (shardName.getStringList('names') != null) {
+      var name = shardName.getStringList('names');
+      name.add(shard[0]);
+      shardName.setStringList('names', name);
+    } else {
+      var name = <String>[shard[0]];
+      shardName.setStringList('names', name);
+    }
+}
+
+handleChange(name) {
+    setState(() => shardName = name);
+  }
+
+nameShard(key, value) {
+  var shard = [shardName, (key + ":" + value)];
+  Navigator.pop(context);
+  saveShards(shard);
 }
 
   Widget build(BuildContext context) {
@@ -134,7 +175,7 @@ void secret() {
                         ),
                         FlatButton(
                           onPressed: () {
-                            generateQRCode(key.toString(), shares[key].toString());
+                            _nameModal(key.toString(), shares[key].toString());
                           },
                           
                           child: Icon(
@@ -153,5 +194,36 @@ void secret() {
       ),
     );
   }
+ Future<void> _nameModal(key, value) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Add to My Shards'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              TextField(
+                onChanged: handleChange
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Done'),
+            onPressed: () {
+              nameShard(key, value);
+            }),
+        ],
+      );
+    },
+  );
 }
+
+
+}
+
+
 

@@ -66,7 +66,7 @@ class _MyShardsState extends State<MyShards> {
   destroyShards() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     SharedPreferences shardName = await SharedPreferences.getInstance();
-    shardName.remove('names');
+    shardName.remove('names',);
     prefs.remove('shards');
     getShards();
   }
