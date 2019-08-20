@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './qrcamera.dart';
+import './shardrow.dart';
 
 
 class MyShards extends StatefulWidget {
@@ -9,7 +10,9 @@ class MyShards extends StatefulWidget {
 }
 
 class _MyShardsState extends State<MyShards> {
-  var myShards = [];
+  List<String> myShards = [];
+  List<String> name = ['Kevin', 'Turkey', 'Liver', 'Wannabe'];
+ 
 
   @override
   void initState() {
@@ -19,14 +22,29 @@ class _MyShardsState extends State<MyShards> {
 
   saveShards(shard) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(shard);
+
+    //Set Shard
     if (prefs.getStringList('shards') != null) {
       var shards = prefs.getStringList('shards');
-      shards.add(shard);
+      shards.add(shard[1]);
       prefs.setStringList('shards', shards);
     } else {
-      var shards = <String>[shard];
+      var shards = <String>[shard[1]];
       prefs.setStringList('shards', shards);
     }
+
+    //Set Shard Names
+    // SharedPreferences shardName = await SharedPreferences.getInstance();
+
+    // if (shardName.getStringList('names') != null) {
+    //   var shards = shardName.getStringList('names');
+    //   shards.add(shard[0]);
+    //   shardName.setStringList('names', shards);
+    // } else {
+    //   var shards = <String>[shard[0]];
+    //   shardName.setStringList('names', shards);
+    // }
     getShards();
   }
 
@@ -58,14 +76,9 @@ class _MyShardsState extends State<MyShards> {
           children: <Widget>[
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.all(40.0),
+                padding: const EdgeInsets.all(20.0),
                 itemCount: myShards.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: 50,
-                    child: Center(child: Text(myShards[index])),
-                    );
-                  }       
+                itemBuilder: (BuildContext context, int index) =>ShardRow(this.name[index], this.myShards[index])
                 )
             ),
             FlatButton(
@@ -84,4 +97,3 @@ class _MyShardsState extends State<MyShards> {
   }
 }
 
- 

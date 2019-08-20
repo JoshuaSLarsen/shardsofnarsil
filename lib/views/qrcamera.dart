@@ -9,6 +9,11 @@ class QrCamera extends StatefulWidget {
 class _QrCameraState extends State<QrCamera> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   var qrText = '';
+  var shardName = '';
+
+  Map<String, String>shard = {};
+
+
   QRViewController controller;
 
 
@@ -20,6 +25,7 @@ class _QrCameraState extends State<QrCamera> {
         qrText = scanData;
       });
     });
+
   }
 
   scanSuccess() {
@@ -30,8 +36,47 @@ class _QrCameraState extends State<QrCamera> {
     }
   }
 
-  void returnMyShards() {
-    Navigator.pop(context, qrText);
+  handleChange(name) {
+    setState(() => shardName = name);
+    print(shardName);
+  }
+
+  nameShard() {
+    shard = {shardName: qrText};
+    returnMyShards();
+  }
+
+  Future<void> _nameModal() async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Name Your Shard'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              TextField(
+                onChanged: handleChange
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Done'),
+            onPressed: () {
+              nameShard();
+            }),
+        ],
+      );
+    },
+  );
+}
+
+  returnMyShards() {
+    Navigator.pop(context);
+    Navigator.pop(context, shard);
   }
 
   @override
@@ -54,10 +99,10 @@ class _QrCameraState extends State<QrCamera> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(80),
+              padding: EdgeInsets.all(10),
                 child: FlatButton(
-                  onPressed: returnMyShards,
-                  child: Text('Done'),
+                  onPressed: _nameModal,
+                  child: Text('Save'),
                 )
             ),
           ],
