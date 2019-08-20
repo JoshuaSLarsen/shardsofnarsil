@@ -35,7 +35,6 @@ class _HomeState extends State<Home> {
               color: Colors.white.withOpacity(1.0),
               fontFamily: 'Exo 2',
               fontSize: 30,
-              fontWeight: FontWeight.w800,
             ),
         ),
         backgroundColor: Colors.green[900],
