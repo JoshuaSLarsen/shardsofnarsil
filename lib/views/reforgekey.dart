@@ -85,7 +85,7 @@ class _ReforgeKeyState extends State<ReforgeKey> {
                   child: Text('Reforge Shards',
                   style: TextStyle(
                     color: Colors.white,
-                    fontFamily: 'Papyrus',
+                    fontFamily: 'Exo 2',
                     fontWeight: FontWeight.w800,
                     fontSize: 20,
                     ),

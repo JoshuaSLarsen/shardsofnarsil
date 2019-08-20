@@ -53,7 +53,7 @@ void secret() {
             style: TextStyle(
               fontStyle: FontStyle.italic, 
               color: Colors.black.withOpacity(1.0),
-              fontFamily: 'Papyrus',
+              fontFamily: 'Exo 2',
               fontSize: 15,
               fontWeight: FontWeight.w800
               ),
@@ -75,7 +75,7 @@ void secret() {
             style: TextStyle(
               fontStyle: FontStyle.italic, 
               color: Colors.black.withOpacity(1.0),
-              fontFamily: 'Papyrus',
+              fontFamily: 'Exo 2',
               fontSize: 15,
               fontWeight: FontWeight.w800
               ),
@@ -94,7 +94,7 @@ void secret() {
             style: TextStyle(
               fontStyle: FontStyle.italic, 
               color: Colors.black.withOpacity(1.0),
-              fontFamily: 'Papyrus',
+              fontFamily: 'Exo 2',
               fontSize: 15,
               fontWeight: FontWeight.w800
               ),

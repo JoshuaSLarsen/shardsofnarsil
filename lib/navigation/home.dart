@@ -33,9 +33,8 @@ class _HomeState extends State<Home> {
             style: TextStyle(
               fontStyle: FontStyle.italic, 
               color: Colors.white.withOpacity(1.0),
-              fontFamily: 'Papyrus',
+              fontFamily: 'Exo 2',
               fontSize: 30,
-              fontWeight: FontWeight.w800,
             ),
         ),
         backgroundColor: Colors.green[900],

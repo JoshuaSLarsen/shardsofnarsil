@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './qrcamera.dart';
+import './shardrow.dart';
 
 
 class MyShards extends StatefulWidget {
@@ -9,7 +10,9 @@ class MyShards extends StatefulWidget {
 }
 
 class _MyShardsState extends State<MyShards> {
-  var myShards = [];
+  List<String> myShards = [];
+  List<String> names = [];
+ 
 
   @override
   void initState() {
@@ -19,28 +22,51 @@ class _MyShardsState extends State<MyShards> {
 
   saveShards(shard) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(shard);
+
+    //Set Shard
     if (prefs.getStringList('shards') != null) {
       var shards = prefs.getStringList('shards');
-      shards.add(shard);
+      shards.add(shard[1]);
       prefs.setStringList('shards', shards);
     } else {
-      var shards = <String>[shard];
+      var shards = <String>[shard[1]];
       prefs.setStringList('shards', shards);
     }
+
+    //Set Shard Names
+    SharedPreferences shardName = await SharedPreferences.getInstance();
+
+    if (shardName.getStringList('names') != null) {
+      var name = shardName.getStringList('names');
+      name.add(shard[0]);
+      shardName.setStringList('names', name);
+    } else {
+      var name = <String>[shard[0]];
+      shardName.setStringList('names', name);
+    }
+
     getShards();
   }
 
   getShards() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences shardName = await SharedPreferences.getInstance();
+
     if (prefs.getStringList('shards') != null) {
     setState(() => myShards = prefs.getStringList('shards'));
+    setState(() => names = shardName.getStringList('names'));
+
     } else {
       setState(() => myShards = ['You have no shards']);
+      setState(() => names = []);
     }
   }
 
   destroyShards() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences shardName = await SharedPreferences.getInstance();
+    shardName.remove('names');
     prefs.remove('shards');
     getShards();
   }
@@ -51,22 +77,31 @@ class _MyShardsState extends State<MyShards> {
     saveShards(result);
   }
 
+  buildRow() {
+    if (names.length < 1) {
+      return 
+      ListView.builder(      
+          padding: const EdgeInsets.fromLTRB(120.0, 40, 20, 10),
+          itemCount: myShards.length,
+          itemBuilder: (BuildContext context, int index) =>Text('You Have No Shards')
+            );
+    } else {
+      return 
+        ListView.builder(
+          padding: const EdgeInsets.all(20.0),
+          itemCount: myShards.length,
+          itemBuilder: (BuildContext context, int index) =>ShardRow(this.names[index], this.myShards[index])
+          );
+    }
+  }
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
         body: Column(
           children: <Widget>[
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(40.0),
-                itemCount: myShards.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: 50,
-                    child: Center(child: Text(myShards[index])),
-                    );
-                  }       
-                )
+              child: buildRow()
             ),
             FlatButton(
               onPressed: () {openCamera();
@@ -84,4 +119,3 @@ class _MyShardsState extends State<MyShards> {
   }
 }
 
- 
