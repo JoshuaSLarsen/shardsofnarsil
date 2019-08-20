@@ -11,7 +11,7 @@ class _QrCameraState extends State<QrCamera> {
   var qrText = '';
   var shardName = '';
 
-  Map<String, String>shard = {};
+  List shard = [];
 
 
   QRViewController controller;
@@ -42,7 +42,7 @@ class _QrCameraState extends State<QrCamera> {
   }
 
   nameShard() {
-    shard = {shardName: qrText};
+    shard = [shardName, qrText];
     returnMyShards();
   }
 

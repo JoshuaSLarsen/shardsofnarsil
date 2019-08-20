@@ -11,7 +11,7 @@ class MyShards extends StatefulWidget {
 
 class _MyShardsState extends State<MyShards> {
   List<String> myShards = [];
-  List<String> name = ['Kevin', 'Turkey', 'Liver', 'Wannabe'];
+  List<String> names = [];
  
 
   @override
@@ -35,30 +35,38 @@ class _MyShardsState extends State<MyShards> {
     }
 
     //Set Shard Names
-    // SharedPreferences shardName = await SharedPreferences.getInstance();
+    SharedPreferences shardName = await SharedPreferences.getInstance();
 
-    // if (shardName.getStringList('names') != null) {
-    //   var shards = shardName.getStringList('names');
-    //   shards.add(shard[0]);
-    //   shardName.setStringList('names', shards);
-    // } else {
-    //   var shards = <String>[shard[0]];
-    //   shardName.setStringList('names', shards);
-    // }
+    if (shardName.getStringList('names') != null) {
+      var name = shardName.getStringList('names');
+      name.add(shard[0]);
+      shardName.setStringList('names', name);
+    } else {
+      var name = <String>[shard[0]];
+      shardName.setStringList('names', name);
+    }
+
     getShards();
   }
 
   getShards() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences shardName = await SharedPreferences.getInstance();
+
     if (prefs.getStringList('shards') != null) {
     setState(() => myShards = prefs.getStringList('shards'));
+    setState(() => names = shardName.getStringList('names'));
+
     } else {
       setState(() => myShards = ['You have no shards']);
+      setState(() => names = []);
     }
   }
 
   destroyShards() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences shardName = await SharedPreferences.getInstance();
+    shardName.remove('names');
     prefs.remove('shards');
     getShards();
   }
@@ -69,17 +77,31 @@ class _MyShardsState extends State<MyShards> {
     saveShards(result);
   }
 
+  buildRow() {
+    if (names.length < 1) {
+      return 
+      ListView.builder(      
+          padding: const EdgeInsets.fromLTRB(120.0, 40, 20, 10),
+          itemCount: myShards.length,
+          itemBuilder: (BuildContext context, int index) =>Text('You Have No Shards')
+            );
+    } else {
+      return 
+        ListView.builder(
+          padding: const EdgeInsets.all(20.0),
+          itemCount: myShards.length,
+          itemBuilder: (BuildContext context, int index) =>ShardRow(this.names[index], this.myShards[index])
+          );
+    }
+  }
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
         body: Column(
           children: <Widget>[
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(20.0),
-                itemCount: myShards.length,
-                itemBuilder: (BuildContext context, int index) =>ShardRow(this.name[index], this.myShards[index])
-                )
+              child: buildRow()
             ),
             FlatButton(
               onPressed: () {openCamera();
