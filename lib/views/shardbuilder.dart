@@ -89,7 +89,7 @@ nameShard(key, value) {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(5)),
+              padding: EdgeInsets.all(10)),
             Text('Enter Number of Shards',
             style: TextStyle(
               color: Theme.of(context).primaryColorDark,
@@ -104,12 +104,12 @@ nameShard(key, value) {
                 TextField(
                 keyboardType: TextInputType.number,
                 maxLength:3,
-                onChanged: (input) {
+                onChanged: (shardinput) {
                 setState((){
-                  shardTotal = int.parse(input);
-                });
+                  shardTotal = int.parse(shardinput);
+                  });
                 },
-                decoration: new InputDecoration(contentPadding: EdgeInsets.all(20)),
+                decoration: new InputDecoration(contentPadding: EdgeInsets.fromLTRB(20, 8, 0, 0))
             ),
              Text('Enter a Threshold',
             style: TextStyle(
@@ -122,12 +122,12 @@ nameShard(key, value) {
                 TextField(
                 keyboardType: TextInputType.number,
                 maxLength:3,
-                onChanged: (input) {
+                onChanged: (thresholdinput) {
                 setState((){
-                  threshold = int.parse(input);
+                  threshold = int.parse(thresholdinput);
                 });
-                },
-                decoration: new InputDecoration(contentPadding: EdgeInsets.all(20)),
+              },
+                decoration: new InputDecoration(contentPadding: EdgeInsets.fromLTRB(20, 8, 0, 0))
             ),
              Text('Enter Your Code',
             style: TextStyle(
@@ -139,7 +139,7 @@ nameShard(key, value) {
             ),
                 TextField(
                 onChanged: createShards,
-                decoration: new InputDecoration(contentPadding: EdgeInsets.all(20))
+                decoration: new InputDecoration(contentPadding: EdgeInsets.fromLTRB(20, 8, 0, 0))
               ),
               ],)
             ),
@@ -154,35 +154,48 @@ nameShard(key, value) {
                   itemBuilder: (BuildContext context, int index){
                     int key = shares.keys.elementAt(index);
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text('Shard($key)')
+                        Expanded(
+                          flex: 9,
+                          child: Container(
+                            child: 
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(30, 10, 10, 10),
+                                child: Text('Shard($key)')
+                                ),
+                              ),
+                            ),
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            child: FlatButton(
+                              onPressed: () {
+                                generateQRCode(key.toString(), shares[key].toString());
+                              },
+                            child: Icon(
+                              Icons.photo_camera,
+                              color: Theme.of(context).primaryColor,
+                              size: 30,
+                              )
+                            ),
+                          ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(90, 10, 10, 0),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            generateQRCode(key.toString(), shares[key].toString());
-                          },
-                          child: Icon(
-                            Icons.photo_camera,
-                            color: Theme.of(context).primaryColor,
-                            size: 30,
-                          )
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            _nameModal(key.toString(), shares[key].toString());
-                          },
-                          
-                          child: Icon(
-                            Icons.add_circle,
-                            color: Theme.of(context).primaryColor,
-                            size: 30,  
-                          )
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            padding: EdgeInsets.only(right: 1000),
+                            child: FlatButton(
+                              onPressed: () {
+                                _nameModal(key.toString(), shares[key].toString());
+                              },
+                              child: Icon(
+                                Icons.add_circle,
+                                color: Theme.of(context).primaryColor,
+                                size: 30,  
+                              )
+                            ),
+                          ),
                         ),
                       ],
                     );
