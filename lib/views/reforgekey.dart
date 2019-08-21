@@ -80,14 +80,10 @@ class _ReforgeKeyState extends State<ReforgeKey> {
               child: Column(children: <Widget>[
                 FlatButton(
                   onPressed: reforge,
-                  color: Colors.green[900],
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  color: Theme.of(context).primaryColor,
                   child: Text('Reforge Shards',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Exo 2',
-                    fontWeight: FontWeight.w800,
-                    fontSize: 20,
+                    color: Theme.of(context).accentColor,
                     ),
                   ),
                 ),

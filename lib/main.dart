@@ -8,18 +8,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Shards of Narsil',
       theme: ThemeData(
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.blueGrey[400],
+          minWidth: 1,
+          textTheme: ButtonTextTheme.accent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          ),
+        fontFamily: 'Exo 2',
+        textTheme: TextTheme(
+          headline: TextStyle(fontSize: 72.0),
+          title: TextStyle(fontSize: 20.0),
+          body1: TextStyle(fontSize: 13.0),
+          button: TextStyle(color: Colors.white),
+        ),
+        primaryColor: Colors.blueGrey[500],
+        primaryColorDark: Colors.black,
+        accentColor: Colors.grey[200],
+
+        scaffoldBackgroundColor: Colors.grey[300],
+        bottomAppBarColor: Colors.blueGrey[500],
+        hintColor: Colors.grey[500]
+
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
         // application has a blue toolbar. Then, without quitting the app, try
         // changing the primarySwatch below to Colors.green and then invoke
         // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // or simply save your charnges to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
       ),
       home: Home(),
     );

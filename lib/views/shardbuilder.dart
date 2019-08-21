@@ -90,9 +90,11 @@ nameShard(key, value) {
       body: Center(
         child: Column(
           children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(5)),
             Text('Enter Number of Shards',
             style: TextStyle(
-              color: Colors.black.withOpacity(1.0),
+              color: Theme.of(context).primaryColorDark,
               fontFamily: 'Exo 2',
               fontSize: 15,
               fontWeight: FontWeight.w800
@@ -113,7 +115,7 @@ nameShard(key, value) {
             ),
              Text('Enter a Threshold',
             style: TextStyle(
-              color: Colors.black.withOpacity(1.0),
+              color: Theme.of(context).primaryColorDark,
               fontFamily: 'Exo 2',
               fontSize: 15,
               fontWeight: FontWeight.w800
@@ -131,7 +133,7 @@ nameShard(key, value) {
             ),
              Text('Enter Your Code',
             style: TextStyle(
-              color: Colors.black.withOpacity(1.0),
+              color: Theme.of(context).primaryColorDark,
               fontFamily: 'Exo 2',
               fontSize: 15,
               fontWeight: FontWeight.w800
@@ -169,7 +171,7 @@ nameShard(key, value) {
                           },
                           child: Icon(
                             Icons.photo_camera,
-                            color: Colors.green[600],
+                            color: Theme.of(context).primaryColor,
                             size: 30,
                           )
                         ),
@@ -180,7 +182,7 @@ nameShard(key, value) {
                           
                           child: Icon(
                             Icons.add_circle,
-                            color: Colors.green[600],
+                            color: Theme.of(context).primaryColor,
                             size: 30,  
                           )
                         ),
@@ -197,7 +199,7 @@ nameShard(key, value) {
  Future<void> _nameModal(key, value) async {
   return showDialog<void>(
     context: context,
-    barrierDismissible: false, // user must tap button!
+    barrierDismissible: true,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Add to My Shards'),

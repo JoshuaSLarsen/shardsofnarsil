@@ -31,14 +31,13 @@ class _HomeState extends State<Home> {
         title: Text(
           'Shards of Narsil',
             style: TextStyle(
-              color: Colors.white.withOpacity(1.0),
-              fontFamily: 'Exo 2',
-              fontSize: 30,
+              color: Theme.of(context).accentColor,
+              fontSize: 30
             ),
         ),
-        backgroundColor: Colors.green[900],
-      ),
+        backgroundColor: Theme.of(context).primaryColor),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).primaryColor,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.gavel),
@@ -54,7 +53,7 @@ class _HomeState extends State<Home> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green[800],
+        selectedItemColor: Theme.of(context).accentColor,
         onTap: _onItemTapped,
       ),
       body: _pageOptions[_selectedIndex],

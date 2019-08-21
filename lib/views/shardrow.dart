@@ -8,16 +8,20 @@ import 'qrgenerator.dart';
 class ShardRow extends StatefulWidget {
   final String name;
   final String myShards;
-  ShardRow(this.name, this.myShards);
+  final Function() getShards;
+
+  ShardRow(this.name, this.myShards, this.getShards);
 
   @override
-  _ShardRowState createState() => _ShardRowState(this.name, this.myShards);
+  _ShardRowState createState() => _ShardRowState(this.name, this.myShards, this.getShards);
 }
 
 class _ShardRowState extends State<ShardRow> {
   final String name;
   final String myShards;
-  _ShardRowState(this.name, this.myShards);
+  final Function() getShards;
+
+  _ShardRowState(this.name, this.myShards, this.getShards);
 
 
 void nameShard() async {
@@ -52,12 +56,49 @@ getValue() {
   return myShards.split(": ")[1];
 }
 
+// destroyShards() async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     SharedPreferences shardName = await SharedPreferences.getInstance();
+//     shardName.remove('names');
+//     prefs.remove('shards');
+//   }
+
+  destroyShards(name, shard) async {
+    SharedPreferences shardName = await SharedPreferences.getInstance();
+    var names = shardName.getStringList('names');
+    if (names.contains(name)) {
+      names.remove(name);
+      shardName.setStringList('names', names);
+    }
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var shards = shardName.getStringList('shards');
+    if (shards.contains(shard)) {
+      shards.remove(shard);
+      prefs.setStringList('shards', shards);
+    }
+    widget.getShards();
+    print(names);
+    print(shards);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      elevation: 0,
       child: Container(
+        decoration: BoxDecoration(
+          color: Colors.blueGrey[200],
+          gradient: LinearGradient(
+            colors: [Colors.grey[400], Colors.blueGrey[500]],
+            ),
+          borderRadius: BorderRadius.circular(20),
+
+        ),
         padding: EdgeInsets.all(8.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget> [
             CircleAvatar(
               child: Text(name[0]),
@@ -65,21 +106,21 @@ getValue() {
             Padding(padding: EdgeInsets.only(right: 10.0)),
             Text(name),
             FlatButton(
-              onPressed: null,
-              padding: EdgeInsets.all(2.0),
-              child: Icon(
-                Icons.edit,
-                color: Colors.green[600],
-                size: 30,
-              )
-            ),
-            FlatButton(
               onPressed: () {
                 generateQRCode(getKey(), getValue());
               },
               child: Icon(
                 Icons.photo_camera,
-                color: Colors.green[600],
+                color: Theme.of(context).accentColor,
+                size: 30, 
+              )
+            ),
+            FlatButton(
+              onPressed: () => destroyShards(name, myShards),
+              padding: EdgeInsets.all(2.0),
+              child: Icon(
+                Icons.delete,
+                color: Theme.of(context).accentColor,
                 size: 30,
               )
             ),

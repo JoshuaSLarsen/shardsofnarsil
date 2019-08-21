@@ -6,13 +6,12 @@ import './shardrow.dart';
 
 class MyShards extends StatefulWidget {
   @override
-  _MyShardsState createState() => _MyShardsState();
+  MyShardsState createState() => MyShardsState();
 }
 
-class _MyShardsState extends State<MyShards> {
+class MyShardsState extends State<MyShards> {
   List<String> myShards = [];
   List<String> names = [];
- 
 
   @override
   void initState() {
@@ -56,18 +55,12 @@ class _MyShardsState extends State<MyShards> {
     if (prefs.getStringList('shards') != null) {
     setState(() => myShards = prefs.getStringList('shards'));
     setState(() => names = shardName.getStringList('names'));
-
     } else {
-      setState(() => myShards = ['You have no shards']);
-      setState(() => names = []);
+      setState(() => myShards = ['You have No Shards']);
     }
   }
 
-  destroyShards() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    SharedPreferences shardName = await SharedPreferences.getInstance();
-    shardName.remove('names',);
-    prefs.remove('shards');
+  refresh()  {
     getShards();
   }
 
@@ -83,14 +76,14 @@ class _MyShardsState extends State<MyShards> {
       ListView.builder(      
           padding: const EdgeInsets.fromLTRB(120.0, 40, 20, 10),
           itemCount: myShards.length,
-          itemBuilder: (BuildContext context, int index) =>Text('You Have No Shards')
+          itemBuilder: (BuildContext context, int index) =>Text(myShards[0])
             );
     } else {
       return 
         ListView.builder(
           padding: const EdgeInsets.all(20.0),
           itemCount: myShards.length,
-          itemBuilder: (BuildContext context, int index) =>ShardRow(this.names[index], this.myShards[index])
+          itemBuilder: (BuildContext context, int index) =>ShardRow(this.names[index], this.myShards[index], this.refresh)
           );
     }
   }
@@ -103,16 +96,15 @@ class _MyShardsState extends State<MyShards> {
             Expanded(
               child: buildRow()
             ),
-            FlatButton(
+            Padding(
+              padding: EdgeInsets.all(10),),
+            RaisedButton(
               onPressed: () {openCamera();
               },
               child: Text('Add Shard')
             ),
-            FlatButton(
-              onPressed: () {destroyShards();
-              },
-              child: Text('Erase All Shards')
-            ),
+            Padding(
+              padding: EdgeInsets.all(10),),
           ]
       ),
     );
