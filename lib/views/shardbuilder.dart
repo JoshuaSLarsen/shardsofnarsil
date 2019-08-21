@@ -24,23 +24,14 @@ class ShardBuilderState extends State<ShardBuilder> {
   var qrText = '';
   var shardName = '';
 
-
-void createShards(input)  {
-  setState((){
-    codeInput = input; ss  = SecretScheme(shardTotal, threshold);
-  });
-} 
-
-iterateMapEntry(key, value) {
-  shares[key] = value;
-  ('$key:$value').toString();//string interpolation in action
-}
-
 void generateQRCode(key, value) {
   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrGenerator(shard: new Shard(key, value))));
 }
 
 void secret() {
+    setState((){
+      ss  = SecretScheme(shardTotal, threshold);
+      });
     List<int> secretcode = utf8.encode(codeInput);
     List<int> secretInByteValues = secretcode;
     setState((){shares = ss.createShares(secretInByteValues);});
@@ -138,7 +129,11 @@ nameShard(key, value) {
               ),
             ),
                 TextField(
-                onChanged: createShards,
+                onChanged: (handlecodeinput) {
+                setState((){
+                  codeInput = handlecodeinput;
+                  });
+                },
                 decoration: new InputDecoration(contentPadding: EdgeInsets.fromLTRB(20, 8, 0, 0))
               ),
               ],)
