@@ -38,7 +38,6 @@ iterateMapEntry(key, value) {
 
 void generateQRCode(key, value) {
   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrGenerator(shard: new Shard(key, value))));
-  // print(value);
 }
 
 void secret() {
@@ -79,13 +78,12 @@ handleChange(name) {
   }
 
 nameShard(key, value) {
-  var shard = [shardName, (key + ":" + value)];
+  var shard = [shardName, (key + ": " + value)];
   Navigator.pop(context);
   saveShards(shard);
 }
 
   Widget build(BuildContext context) {
-      // print(armies);
     return Scaffold(
       body: Center(
         child: Column(
@@ -213,8 +211,10 @@ nameShard(key, value) {
           ),
         ),
         actions: <Widget>[
-          FlatButton(
+          RaisedButton(
             child: Text('Done'),
+            color: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             onPressed: () {
               nameShard(key, value);
             }),

@@ -36,12 +36,6 @@ void nameShard() async {
     }
   }
 
-void getShardNames() async {
-  SharedPreferences names = await SharedPreferences.getInstance();
-  var something = names.getStringList('names');
-  print(something);
-}
-
 void generateQRCode(key, value) {
   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrGenerator(shard: new Shard(key, value))));
 }
@@ -55,13 +49,6 @@ getValue() {
   print(myShards.split(": ")[1]);
   return myShards.split(": ")[1];
 }
-
-// destroyShards() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     SharedPreferences shardName = await SharedPreferences.getInstance();
-//     shardName.remove('names');
-//     prefs.remove('shards');
-//   }
 
   destroyShards(name, shard) async {
     SharedPreferences shardName = await SharedPreferences.getInstance();
@@ -102,6 +89,7 @@ getValue() {
           children: <Widget> [
             CircleAvatar(
               child: Text(name[0]),
+              backgroundColor: Theme.of(context).primaryColorDark,
               ),
             Padding(padding: EdgeInsets.only(right: 10.0)),
             Text(name),

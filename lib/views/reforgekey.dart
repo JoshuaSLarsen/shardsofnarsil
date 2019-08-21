@@ -78,9 +78,8 @@ class _ReforgeKeyState extends State<ReforgeKey> {
             ),
             Expanded(
               child: Column(children: <Widget>[
-                FlatButton(
+                RaisedButton(
                   onPressed: reforge,
-                  color: Theme.of(context).primaryColor,
                   child: Text('Reforge Shards',
                   style: TextStyle(
                     color: Theme.of(context).accentColor,

@@ -62,8 +62,10 @@ class _QrCameraState extends State<QrCamera> {
           ),
         ),
         actions: <Widget>[
-          FlatButton(
+          RaisedButton(
             child: Text('Done'),
+            color: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             onPressed: () {
               nameShard();
             }),
@@ -87,7 +89,7 @@ class _QrCameraState extends State<QrCamera> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(80),
+              padding: EdgeInsets.fromLTRB(20, 80, 20, 60),
                 child: Text(scanSuccess()),
             ),
             Expanded(
@@ -98,12 +100,13 @@ class _QrCameraState extends State<QrCamera> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
-                child: FlatButton(
+              padding: EdgeInsets.all(20),
+                child: RaisedButton(
                   onPressed: _nameModal,
                   child: Text('Save'),
                 )
             ),
+            Padding(padding: EdgeInsets.all(20),)
           ],
         )
       )
