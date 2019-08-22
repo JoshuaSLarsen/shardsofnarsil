@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../util/shard.dart';
-import 'qrgenerator.dart';
+import 'qr_generator.dart';
 
 
 class ShardRow extends StatefulWidget {
@@ -51,6 +51,7 @@ getValue() {
 }
 
   destroyShards(name, shard) async {
+    //TODO currently when deleting a shard that isn't on the bottom, it appears to delete the wrong one, although it does delete the correct shard.
     SharedPreferences shardName = await SharedPreferences.getInstance();
     var names = shardName.getStringList('names');
     if (names.contains(name)) {

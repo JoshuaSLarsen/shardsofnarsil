@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import './addtomyshards.dart';
-import './shardrow.dart';
+import './add_to_my_shards.dart';
+import './shard_row.dart';
 
 
 class MyShards extends StatefulWidget {

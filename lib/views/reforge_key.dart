@@ -38,9 +38,11 @@ class _ReforgeKeyState extends State<ReforgeKey> {
     didUpdateWidget(ReforgeKey());
     if (qrText != '') {
     return 'Scan Successful!\n ${shares.length} Shards have been collected.';
+    //TODO add animation that grows and shrinks text?
     }
     else {
       return 'Please Scan a Qr Code';
+      
     }
   }
 
@@ -49,8 +51,10 @@ class _ReforgeKeyState extends State<ReforgeKey> {
     final reforgedsecret = utf8.decode(recombinedSecretInBytes);
     setState((){
       secret = reforgedsecret;
+      //TODO Animate when secret is reforged
+      //TODO add Snack bar error handling when reforge criteria is not met
     });
-    print('The Flame of the West has been forged');
+    print('The Flame of the West has been forged'); // Keep this as an Easter Egg
   }
 
   @override

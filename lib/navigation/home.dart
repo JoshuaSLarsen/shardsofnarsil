@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../views/shardbuilder.dart';
-import '../views/myshards.dart';
-import '../views/reforgekey.dart';
+import '../views/shard_builder.dart';
+import '../views/my_shards.dart';
+import '../views/reforge_key.dart';
 
 
 class Home extends StatefulWidget {

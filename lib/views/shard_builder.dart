@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dart_ssss/dart_ssss.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import './qrgenerator.dart';
+import './qr_generator.dart';
 import '../util/shard.dart';
 
 class ShardBuilder extends StatefulWidget {

@@ -7,10 +7,10 @@ class AddToMyShards extends StatefulWidget {
 }
 
 class _AddToMyShardsState extends State<AddToMyShards> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   var qrText = '';
   var shardName = '';
-
   List shard = [];
 
 
@@ -41,9 +41,25 @@ class _AddToMyShardsState extends State<AddToMyShards> {
   }
 
   nameShard() {
-    shard = [shardName, qrText];
-    returnMyShards();
+    //TODO prevent creating a shard without qrText, add a snackbar
+    if (qrText == '') {
+      showSnackBar('Please Scan a Qr Code');
+      Navigator.of(context).pop();
+    } else if (shardName == '') {
+      showSnackBar('You must give your shard a name');
+    } else {
+      shard = [shardName, qrText];
+      returnMyShards();
+    }
   }
+
+  showSnackBar(error) {
+  final snackBar = SnackBar(
+    content: Text(error),
+    duration: Duration(seconds: 3),
+    );
+  _scaffoldKey.currentState.showSnackBar(snackBar);
+}
 
   Future<void> _nameModal() async {
     //TODO refactor into own widget
@@ -84,6 +100,7 @@ class _AddToMyShardsState extends State<AddToMyShards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Center(
         
         child: Column(
