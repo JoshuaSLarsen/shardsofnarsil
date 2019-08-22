@@ -18,7 +18,7 @@ class ShardBuilderState extends State<ShardBuilder> {
   SecretScheme ss;
   Map<int, List<int>>someshares = {};
   final _formKey = GlobalKey<FormState>();
-  String codeInput = '';
+  String keyInput = '';
   int shardTotal = 0;
   int threshold = 0;
   var qrText = '';
@@ -29,8 +29,8 @@ void generateQRCode(key, value) {
 }
 
 void secret() {
-  if (codeInput.length < 1) {
-    showSnackBar('Please enter a Code');
+  if (keyInput.length < 1) {
+    showSnackBar('Please enter a Key');
   }
 
   if (shardTotal < 2) {
@@ -52,8 +52,8 @@ void secret() {
   setState((){
     ss  = SecretScheme(shardTotal, threshold);
     });
-  List<int> secretcode = utf8.encode(codeInput);
-  List<int> secretInByteValues = secretcode;
+  List<int> secretkey = utf8.encode(keyInput);
+  List<int> secretInByteValues = secretkey;
   setState((){shares = ss.createShares(secretInByteValues);});
 }
 
@@ -150,7 +150,7 @@ nameShard(key, value) {
               },
                 decoration: new InputDecoration(contentPadding: EdgeInsets.fromLTRB(20, 8, 0, 0))
             ),
-             Text('Enter Your Code',
+             Text('Enter Your Key',
             style: TextStyle(
               color: Theme.of(context).primaryColorDark,
               fontFamily: 'Exo 2',
@@ -159,9 +159,9 @@ nameShard(key, value) {
               ),
             ),
                 TextField(
-                onChanged: (handlecodeinput) {
+                onChanged: (handlekeyinput) {
                 setState((){
-                  codeInput = handlecodeinput;
+                  keyInput = handlekeyinput;
                   });
                 },
                 decoration: new InputDecoration(contentPadding: EdgeInsets.fromLTRB(20, 8, 0, 0))
