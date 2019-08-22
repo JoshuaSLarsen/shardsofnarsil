@@ -13,14 +13,14 @@ class ShardBuilder extends StatefulWidget {
 
 class ShardBuilderState extends State<ShardBuilder> {
   
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Map<int, List<int>>shares = {};
   SecretScheme ss;
   Map<int, List<int>>someshares = {};
   final _formKey = GlobalKey<FormState>();
   String codeInput = '';
-  int shardTotal = 5;
-  int threshold = 3;
-  var numberIndex = List<int>.generate(250, (int index) => index); // [ 0, 1, ... 249, 250]
+  int shardTotal = 0;
+  int threshold = 0;
   var qrText = '';
   var shardName = '';
 
@@ -29,17 +29,44 @@ void generateQRCode(key, value) {
 }
 
 void secret() {
-    setState((){
-      ss  = SecretScheme(shardTotal, threshold);
-      });
-    List<int> secretcode = utf8.encode(codeInput);
-    List<int> secretInByteValues = secretcode;
-    setState((){shares = ss.createShares(secretInByteValues);});
+  if (codeInput.length < 1) {
+    showSnackBar('Please enter a Code');
+  }
+
+  if (shardTotal < 2) {
+    showSnackBar('The Number of Shards must be more than 1');
+  }
+
+  if (shardTotal > 255) {
+    showSnackBar('The Number of Shards must be less than 256');
+  }
+
+  if (threshold > shardTotal) {
+    showSnackBar('The Threshold cannot be greater than the Number of Shards');
+  }
+
+  if (threshold < 2) {
+    showSnackBar('The minimum Threshold is 2');
+  }
+
+  setState((){
+    ss  = SecretScheme(shardTotal, threshold);
+    });
+  List<int> secretcode = utf8.encode(codeInput);
+  List<int> secretInByteValues = secretcode;
+  setState((){shares = ss.createShares(secretInByteValues);});
+}
+
+showSnackBar(error) {
+  final snackBar = SnackBar(
+    content: Text(error),
+    duration: Duration(seconds: 2),
+    );
+  _scaffoldKey.currentState.showSnackBar(snackBar);
 }
 
 saveShards(shard) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(shard);
 
     //Set Shard
     if (prefs.getStringList('shards') != null) {
@@ -75,7 +102,9 @@ nameShard(key, value) {
 }
 
   Widget build(BuildContext context) {
+
     return Scaffold(
+      key: _scaffoldKey,
       body: Center(
         child: Column(
           children: <Widget>[
@@ -113,6 +142,7 @@ nameShard(key, value) {
                 TextField(
                 keyboardType: TextInputType.number,
                 maxLength:3,
+                autocorrect: false,
                 onChanged: (thresholdinput) {
                 setState((){
                   threshold = int.parse(thresholdinput);
@@ -138,12 +168,14 @@ nameShard(key, value) {
               ),
               ],)
             ),
+            Padding(padding: EdgeInsets.only(top: 8)),
             RaisedButton(
               onPressed: (){
                 secret();
                 },
               child: Text('Create Shards')
             ),
+            
             Expanded(child: new ListView.builder(
                   itemCount: shares.length,
                   itemBuilder: (BuildContext context, int index){
@@ -152,7 +184,7 @@ nameShard(key, value) {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Expanded(
-                          flex: 9,
+                          flex: 7,
                           child: Container(
                             child: 
                               Padding(
@@ -179,7 +211,7 @@ nameShard(key, value) {
                         Expanded(
                           flex: 2,
                           child: Container(
-                            padding: EdgeInsets.only(right: 1000),
+                            padding: EdgeInsets.only(right: 2),
                             child: FlatButton(
                               onPressed: () {
                                 _nameModal(key.toString(), shares[key].toString());
@@ -203,6 +235,7 @@ nameShard(key, value) {
     );
   }
  Future<void> _nameModal(key, value) async {
+   //TODO refactor to its own widget
   return showDialog<void>(
     context: context,
     barrierDismissible: true,

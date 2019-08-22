@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import './qrcamera.dart';
+import './addtomyshards.dart';
 import './shardrow.dart';
 
 
@@ -66,7 +66,7 @@ class MyShardsState extends State<MyShards> {
 
   openCamera() async {
     final result = await
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QrCamera()));
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddToMyShards()));
     saveShards(result);
   }
 

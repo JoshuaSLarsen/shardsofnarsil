@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QrCamera extends StatefulWidget {
+class AddToMyShards extends StatefulWidget {
   @override
-  _QrCameraState createState() => _QrCameraState();
+  _AddToMyShardsState createState() => _AddToMyShardsState();
 }
 
-class _QrCameraState extends State<QrCamera> {
+class _AddToMyShardsState extends State<AddToMyShards> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   var qrText = '';
   var shardName = '';
@@ -46,6 +46,7 @@ class _QrCameraState extends State<QrCamera> {
   }
 
   Future<void> _nameModal() async {
+    //TODO refactor into own widget
   return showDialog<void>(
     context: context,
     barrierDismissible: true,

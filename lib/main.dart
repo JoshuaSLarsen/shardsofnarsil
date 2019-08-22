@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Shards of Narsil',
       theme: ThemeData(
         buttonTheme: ButtonThemeData(
@@ -34,7 +35,11 @@ class MyApp extends StatelessWidget {
 
         scaffoldBackgroundColor: Colors.grey[300],
         bottomAppBarColor: Colors.blueGrey[500],
-        hintColor: Colors.grey[500]
+        hintColor: Colors.grey[500],
+        snackBarTheme: SnackBarThemeData(
+          backgroundColor: Colors.red[800],
+          elevation: 300),
+          
 
         // TODO Create Android Launcher Icon, It currently has white background. 
 
