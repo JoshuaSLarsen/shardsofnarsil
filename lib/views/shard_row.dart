@@ -86,13 +86,15 @@ getValue() {
             Expanded(
               flex: 2,
               child: CircleAvatar(
-                child: Text(name[0].toUpperCase()),
+                child: Text(name[0].toUpperCase(),),
                 backgroundColor: Colors.blueGrey[700],
                 ),
             ),
+            Padding(padding: EdgeInsets.only(left: 10)),
             Expanded(
               flex: 6,
-              child: Text(name)
+              child: Text(name,
+              style: TextStyle(fontSize: 15))
             ),
             Expanded(
               flex: 2,

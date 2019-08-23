@@ -36,7 +36,7 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
     animateColor = ColorTween(begin: Colors.black, end: Colors.green).animate(animationController); 
 
 
-    animation = Tween(begin: 12.0, end: 14.0).animate(animationController)
+    animation = Tween(begin: 14.0, end: 16.0).animate(animationController)
     ..addListener(() { // .. notation is like .then() in dart
       setState((){});
     });
