@@ -49,7 +49,7 @@ class MyShardsState extends State<MyShards> {
     setState(() => myShards = prefs.getStringList('shards'));
     setState(() => names = shardName.getStringList('names'));
     } else {
-      setState(() => myShards = ['You have No Shards']);
+      setState(() => myShards = ["You Don't Have Any Shards"]);
     }
   }
 
@@ -65,9 +65,12 @@ class MyShardsState extends State<MyShards> {
     if (names.length < 1) {
       return 
       ListView.builder(   
-          padding: const EdgeInsets.fromLTRB(120.0, 40, 20, 10),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
           itemCount: myShards.length,
-          itemBuilder: (BuildContext context, int index) =>Text(myShards[0])
+          itemBuilder: (BuildContext context, int index) =>
+            Text(myShards[0],
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14))
             );
     } else {
       return 

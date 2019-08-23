@@ -3,6 +3,7 @@ import 'package:flutter/animation.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:dart_ssss/dart_ssss.dart';
 import 'dart:convert';
+import 'package:flutter/services.dart';
 
 class ReforgeKey extends StatefulWidget {
   @override
@@ -20,8 +21,6 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
   Animation animation;
   Animation animateColor;
   AnimationController animationController;
-
-//TODO add copy to clip board to secret
 
   @override
   void initState() {
@@ -64,6 +63,7 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
   scanSuccessful() {
     didUpdateWidget(ReforgeKey());
     if (qrText == 'The Flame of the West has been Forged')  {
+
       return secret;
     } else if (qrText != '') {
         if (shares.length > 1) {
@@ -107,6 +107,35 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
   _scaffoldKey.currentState.showSnackBar(snackBar);
 }
 
+  snackBarSuccess() {
+    final snackBar = SnackBar(
+    backgroundColor: Colors.green,
+    content: Text("Your key has been copied to your clipboard",
+    style: TextStyle(
+      fontFamily: 'Exo 2',
+     ),
+    textAlign: TextAlign.center
+    ),
+    duration: Duration(seconds: 2),
+    );
+  _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+  showClipboard() {
+    if (qrText == 'The Flame of the West has been Forged') {
+      return RaisedButton(
+              onPressed: () {Clipboard.setData(new ClipboardData(text: secret)); snackBarSuccess();},
+              child: Text('Copy To Clipboard',
+              style: TextStyle(
+              color: Theme.of(context).accentColor,
+                ),
+              ),
+            );
+    } else {
+      return Padding(padding: EdgeInsets.all(0));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,9 +145,9 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(40),
+              padding: EdgeInsets.all(20),
                 child: Container(
-                  height: 35,
+                  height: 40,
                   child: Text(scanSuccessful(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -128,6 +157,7 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
                   ),
                 ),
             ),
+            showClipboard(),
             Expanded(
               flex: 5,
               child: QRView(
@@ -138,7 +168,9 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
             Padding(padding: EdgeInsets.all(15),
             ),
             Expanded(
-              child: Column(children: <Widget>[
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
                 RaisedButton(
                   onPressed: reforge,
                   child: Text('Reforge Key',
