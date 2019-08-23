@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './add_to_my_shards.dart';
 import './shard_row.dart';
 
-
 class MyShards extends StatefulWidget {
   @override
   MyShardsState createState() => MyShardsState();
@@ -21,7 +20,6 @@ class MyShardsState extends State<MyShards> {
 
   saveShards(shard) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     //Set Shard
     if (prefs.getStringList('shards') != null) {
       var shards = prefs.getStringList('shards');
@@ -31,10 +29,8 @@ class MyShardsState extends State<MyShards> {
       var shards = <String>[shard[1]];
       prefs.setStringList('shards', shards);
     }
-
-    //Set Shard Names
     SharedPreferences shardName = await SharedPreferences.getInstance();
-
+    //Set Shard Names
     if (shardName.getStringList('names') != null) {
       var name = shardName.getStringList('names');
       name.add(shard[0]);
@@ -43,24 +39,18 @@ class MyShardsState extends State<MyShards> {
       var name = <String>[shard[0]];
       shardName.setStringList('names', name);
     }
-
     getShards();
   }
 
   getShards() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     SharedPreferences shardName = await SharedPreferences.getInstance();
-
     if (prefs.getStringList('shards') != null) {
     setState(() => myShards = prefs.getStringList('shards'));
     setState(() => names = shardName.getStringList('names'));
     } else {
       setState(() => myShards = ['You have No Shards']);
     }
-  }
-
-  refresh()  {
-    getShards();
   }
 
   openCamera() async {
@@ -85,7 +75,7 @@ class MyShardsState extends State<MyShards> {
           key: Key(names.toString()),   
           padding: const EdgeInsets.all(20.0),
           itemCount: myShards.length,
-          itemBuilder: (BuildContext context, int index) =>ShardRow(this.names[index], this.myShards[index], this.refresh)
+          itemBuilder: (BuildContext context, int index) =>ShardRow(this.names[index], this.myShards[index], this.getShards)
           );
     }
   }

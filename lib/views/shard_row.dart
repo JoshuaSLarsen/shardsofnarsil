@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../util/shard.dart';
 import 'qr_generator.dart';
-
 
 class ShardRow extends StatefulWidget {
   final String name;
   final String myShards;
   final Function() getShards;
-
-  //TODO fix shard row column sizes
   ShardRow(this.name, this.myShards, this.getShards);
 
   @override
@@ -21,9 +17,7 @@ class _ShardRowState extends State<ShardRow> {
   final String name;
   final String myShards;
   final Function() getShards;
-
   _ShardRowState(this.name, this.myShards, this.getShards);
-
 
 void nameShard() async {
     SharedPreferences names = await SharedPreferences.getInstance();

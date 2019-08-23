@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -40,10 +40,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.red[800],
           elevation: 300),
           
-
         // TODO Create Android Launcher Icon, It currently has white background. 
-        // TODO create a splash page
-        // TODO Add a disclaimer?
 
       ),
       home: Home(),

@@ -30,12 +30,12 @@ void generateQRCode(key, value) {
 
 void secret() {
   try {
-  setState((){
-    ss  = SecretScheme(shardTotal, threshold);
+    setState((){
+      ss  = SecretScheme(shardTotal, threshold);
     });
-  List<int> secretkey = utf8.encode(keyInput);
-  List<int> secretInByteValues = secretkey;
-  setState((){shares = ss.createShares(secretInByteValues);});
+    List<int> secretkey = utf8.encode(keyInput);
+    List<int> secretInByteValues = secretkey;
+    setState((){shares = ss.createShares(secretInByteValues);});
   } catch(e) {
     if (keyInput.length < 1) {
     showSnackBar('Please enter a Key');
@@ -73,7 +73,6 @@ showSnackBar(error) {
 
 saveShards(shard) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     //Set Shard
     if (prefs.getStringList('shards') != null) {
       var shards = prefs.getStringList('shards');
@@ -83,10 +82,8 @@ saveShards(shard) async {
       var shards = <String>[shard[1]];
       prefs.setStringList('shards', shards);
     }
-
-     //Set Shard Names
     SharedPreferences shardName = await SharedPreferences.getInstance();
-
+    //Set Shard Names
     if (shardName.getStringList('names') != null) {
       var name = shardName.getStringList('names');
       name.add(shard[0]);
@@ -102,13 +99,16 @@ handleChange(name) {
   }
 
 nameShard(key, value) {
-  var shard = [shardName, (key + ": " + value)];
-  Navigator.pop(context);
-  saveShards(shard);
+  if (shardName == '') {
+    showSnackBar('You must assign a name to your shard');
+  } else {
+    var shard = [shardName, (key + ": " + value)];
+    Navigator.pop(context);
+    saveShards(shard);
+  }
 }
 
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       body: Center(
@@ -241,8 +241,6 @@ nameShard(key, value) {
     );
   }
  Future<void> _nameModal(key, value) async {
-   //TODO refactor to its own widget
-   //TODO prevent creating a shard without a name
   return showDialog<void>(
     context: context,
     barrierDismissible: true,

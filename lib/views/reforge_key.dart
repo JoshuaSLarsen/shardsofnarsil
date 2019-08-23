@@ -19,9 +19,7 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
   Map<int, List<int>>shares = {};
   Animation animation;
   Animation animateColor;
-
   AnimationController animationController;
-
 
 //TODO add copy to clip board to secret
 
@@ -32,10 +30,7 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
     animationController = AnimationController(
       duration: Duration(milliseconds: 200), vsync: this
     );
-
     animateColor = ColorTween(begin: Colors.black, end: Colors.green).animate(animationController); 
-
-
     animation = Tween(begin: 14.0, end: 16.0).animate(animationController)
     ..addListener(() { // .. notation is like .then() in dart
       setState((){});
@@ -91,7 +86,6 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
       animationController.forward();
       Future.delayed(const Duration(milliseconds: 400), () => animationController.reverse());
     });
-    print('The Flame of the West has been forged'); // Keep this as an Easter Egg
     } catch(e) {
       if (shares.length < 1) {
         showSnackBar("You haven't scanned any shards");
@@ -118,7 +112,6 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
     return Scaffold(
       key: _scaffoldKey,
       body: Center(
-        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

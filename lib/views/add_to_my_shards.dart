@@ -19,8 +19,6 @@ class _AddToMyShardsState extends State<AddToMyShards> with SingleTickerProvider
   AnimationController animationController;
   QRViewController controller;
 
-  //TODO fix memory leak by dismounting from camera
-
   @override
     void initState() {
       super.initState();
@@ -144,7 +142,6 @@ class _AddToMyShardsState extends State<AddToMyShards> with SingleTickerProvider
   }
 
 Future<void> _nameModal() async {
-    //TODO refactor into own widget
   return showDialog<void>(
     context: context,
     barrierDismissible: true,

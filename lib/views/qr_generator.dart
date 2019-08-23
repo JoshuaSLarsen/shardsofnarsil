@@ -4,9 +4,8 @@ import '../util/shard.dart';
 
 class QrGenerator extends StatelessWidget {
   final Shard shard;
-
   QrGenerator({Key key, @required this.shard}) : super(key: key);
-//TODO change appbar size to match
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

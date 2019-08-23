@@ -3,27 +3,19 @@ import '../views/shard_builder.dart';
 import '../views/my_shards.dart';
 import '../views/reforge_key.dart';
 
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-//TODO add animation when switching
-
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
-  final _pageOptions = [
-    ShardBuilder(),
-    MyShards(),
-    ReforgeKey()
-  ];
+  final _pageOptions = [ShardBuilder(), MyShards(), ReforgeKey()];
  
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    
   }
 
   @override
@@ -60,6 +52,5 @@ class _HomeState extends State<Home> {
       ),
       body: _pageOptions[_selectedIndex],
     );
-
   }
 }
