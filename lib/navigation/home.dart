@@ -9,6 +9,8 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+//TODO add animation when switching
+
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   final _pageOptions = [

@@ -18,6 +18,8 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
   SecretScheme ss  = SecretScheme(5, 4);
   Map<int, List<int>>shares = {};
   Animation animation;
+  Animation animateColor;
+
   AnimationController animationController;
 
 
@@ -30,6 +32,9 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
     animationController = AnimationController(
       duration: Duration(milliseconds: 200), vsync: this
     );
+
+    animateColor = ColorTween(begin: Colors.black, end: Colors.green).animate(animationController); 
+
 
     animation = Tween(begin: 12.0, end: 14.0).animate(animationController)
     ..addListener(() { // .. notation is like .then() in dart
@@ -125,6 +130,7 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: animation.value,
+                      color: animateColor.value
                     ),
                   ),
                 ),

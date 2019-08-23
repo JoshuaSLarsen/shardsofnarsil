@@ -1,21 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:flutter/animation.dart';
+
 
 class AddToMyShards extends StatefulWidget {
   @override
   _AddToMyShardsState createState() => _AddToMyShardsState();
 }
 
-class _AddToMyShardsState extends State<AddToMyShards> {
+class _AddToMyShardsState extends State<AddToMyShards> with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   var qrText = '';
   var shardName = '';
   List shard = [];
-
-
+  Animation animation;
+  Animation animateColor;
+  AnimationController animationController;
   QRViewController controller;
 
+  //TODO fix memory leak by dismounting from camera
+  //TODO add animation when scan is successful
+
+  @override
+    void initState() {
+      super.initState();
+      animationController = AnimationController(
+        duration: Duration(milliseconds: 200), vsync: this
+      );
+
+      animateColor = ColorTween(begin: Colors.black, end: Colors.green).animate(animationController); 
+
+      animation = Tween(begin: 12.0, end: 14.0).animate(animationController)
+      ..addListener(() { // .. notation is like .then() in dart
+        setState((){});
+      });
+    }
+
+  @override
+    void dispose() {
+      animationController.dispose();
+      super.dispose();
+  }
 
   void _onQRViewCreated(QRViewController controller) async 
   {
@@ -23,6 +49,8 @@ class _AddToMyShardsState extends State<AddToMyShards> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         qrText = scanData;
+        animationController.forward();
+        Future.delayed(const Duration(milliseconds: 400), () => animationController.reverse());
       });
     });
 
@@ -39,8 +67,6 @@ class _AddToMyShardsState extends State<AddToMyShards> {
   handleChange(name) {
     setState(() => shardName = name);
   }
-
-//TODO add a back button
 
   nameShard() {
     if (qrText == '') {
@@ -66,7 +92,61 @@ class _AddToMyShardsState extends State<AddToMyShards> {
   _scaffoldKey.currentState.showSnackBar(snackBar);
 }
 
-  Future<void> _nameModal() async {
+  
+
+  returnMyShards() {
+    Navigator.pop(context);
+    Navigator.pop(context, shard);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      body: Center(
+        
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 80, 20, 60),
+                child: Text(scanSuccess(),
+                style: TextStyle(
+                  fontSize: animation.value,
+                  color: animateColor.value
+                  ),
+                ),
+            ),
+            Expanded(
+              flex: 5,
+              child: QRView(
+                key: qrKey,
+                onQRViewCreated: _onQRViewCreated
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.all(20)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+              RaisedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('Back'),
+                ),
+              RaisedButton(
+                    onPressed: _nameModal,
+                    child: Text('Save'),
+                  )
+              ],
+            ),
+            Padding(padding: EdgeInsets.all(20),)
+          ],
+        )
+      )
+    );
+  }
+
+Future<void> _nameModal() async {
     //TODO refactor into own widget
   return showDialog<void>(
     context: context,
@@ -99,52 +179,7 @@ class _AddToMyShardsState extends State<AddToMyShards> {
   );
 }
 
-  returnMyShards() {
-    Navigator.pop(context);
-    Navigator.pop(context, shard);
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: Center(
-        
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 80, 20, 60),
-                child: Text(scanSuccess()),
-            ),
-            Expanded(
-              flex: 5,
-              child: QRView(
-                key: qrKey,
-                onQRViewCreated: _onQRViewCreated
-              ),
-            ),
-            Padding(
-                padding: EdgeInsets.all(20)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-              RaisedButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Back'),
-                ),
-              RaisedButton(
-                    onPressed: _nameModal,
-                    child: Text('Save'),
-                  )
-              ],
-            ),
-            Padding(padding: EdgeInsets.all(20),)
-          ],
-        )
-      )
-    );
-  }
 }
 
 
