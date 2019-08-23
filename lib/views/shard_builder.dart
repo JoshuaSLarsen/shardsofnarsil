@@ -29,32 +29,34 @@ void generateQRCode(key, value) {
 }
 
 void secret() {
-  if (keyInput.length < 1) {
-    showSnackBar('Please enter a Key');
-  }
-
-  if (shardTotal < 2) {
-    showSnackBar('The Number of Shards must be more than 1');
-  }
-
-  if (shardTotal > 255) {
-    showSnackBar('The Number of Shards must be less than 256');
-  }
-
-  if (threshold > shardTotal) {
-    showSnackBar('The Threshold cannot be greater than the Number of Shards');
-  }
-
-  if (threshold < 2) {
-    showSnackBar('The minimum Threshold is 2');
-  }
-
+  try {
   setState((){
     ss  = SecretScheme(shardTotal, threshold);
     });
   List<int> secretkey = utf8.encode(keyInput);
   List<int> secretInByteValues = secretkey;
   setState((){shares = ss.createShares(secretInByteValues);});
+  } catch(e) {
+    if (keyInput.length < 1) {
+    showSnackBar('Please enter a Key');
+  }
+
+    if (shardTotal < 2) {
+      showSnackBar('The Number of Shards must be more than 1');
+    }
+
+    if (shardTotal > 255) {
+      showSnackBar('The Number of Shards must be less than 256');
+    } 
+
+    if (threshold > shardTotal) {
+      showSnackBar('The Threshold cannot be greater than the Number of Shards');
+    }
+
+    if (threshold < 2) {
+      showSnackBar('The minimum Threshold is 2');
+    }
+  }
 }
 
 showSnackBar(error) {

@@ -86,12 +86,10 @@ class _AddToMyShardsState extends State<AddToMyShards> with SingleTickerProvider
      'Exo 2'),
     textAlign: TextAlign.center
     ),
-    duration: Duration(seconds: 3),
+    duration: Duration(seconds: 2),
     );
   _scaffoldKey.currentState.showSnackBar(snackBar);
 }
-
-  
 
   returnMyShards() {
     Navigator.pop(context);
