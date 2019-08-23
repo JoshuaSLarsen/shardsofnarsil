@@ -11,7 +11,8 @@ class QrGenerator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Code'),
+        title: Text('Shards of Narsil',
+        style: TextStyle(fontSize: 30)),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Center(

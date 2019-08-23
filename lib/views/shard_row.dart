@@ -86,8 +86,8 @@ getValue() {
             Expanded(
               flex: 2,
               child: CircleAvatar(
-                child: Text(name[0]),
-                backgroundColor: Theme.of(context).primaryColorDark,
+                child: Text(name[0].toUpperCase()),
+                backgroundColor: Theme.of(context).primaryColor,
                 ),
             ),
             Expanded(
