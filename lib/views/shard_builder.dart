@@ -240,6 +240,7 @@ nameShard(key, value) {
   }
  Future<void> _nameModal(key, value) async {
    //TODO refactor to its own widget
+   //TODO prevent creating a shard without a name
   return showDialog<void>(
     context: context,
     barrierDismissible: true,

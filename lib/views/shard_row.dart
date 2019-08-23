@@ -10,7 +10,7 @@ class ShardRow extends StatefulWidget {
   final String myShards;
   final Function() getShards;
 
-
+  //TODO fix shard row column sizes
   ShardRow(this.name, this.myShards, this.getShards);
 
   @override

@@ -20,7 +20,6 @@ class _AddToMyShardsState extends State<AddToMyShards> with SingleTickerProvider
   QRViewController controller;
 
   //TODO fix memory leak by dismounting from camera
-  //TODO add animation when scan is successful
 
   @override
     void initState() {
