@@ -39,9 +39,6 @@ class MyApp extends StatelessWidget {
         snackBarTheme: SnackBarThemeData(
           backgroundColor: Colors.red[800],
           elevation: 300),
-          
-        // TODO Create Android Launcher Icon, It currently has white background. 
-
       ),
       home: Home(),
     );
