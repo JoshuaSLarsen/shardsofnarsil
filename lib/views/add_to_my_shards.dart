@@ -40,8 +40,9 @@ class _AddToMyShardsState extends State<AddToMyShards> {
     setState(() => shardName = name);
   }
 
+//TODO add a back button
+
   nameShard() {
-    //TODO prevent creating a shard without qrText, add a snackbar
     if (qrText == '') {
       showSnackBar('Please Scan a Qr Code');
       Navigator.of(context).pop();
@@ -55,7 +56,11 @@ class _AddToMyShardsState extends State<AddToMyShards> {
 
   showSnackBar(error) {
   final snackBar = SnackBar(
-    content: Text(error),
+    content: Text(error,
+    style: TextStyle(fontFamily: 
+     'Exo 2'),
+    textAlign: TextAlign.center
+    ),
     duration: Duration(seconds: 3),
     );
   _scaffoldKey.currentState.showSnackBar(snackBar);
@@ -73,12 +78,14 @@ class _AddToMyShardsState extends State<AddToMyShards> {
           child: ListBody(
             children: <Widget>[
               TextField(
-                onChanged: handleChange
+                onChanged: handleChange,
+                maxLength: 30,
               ),
             ],
           ),
         ),
         actions: <Widget>[
+          
           RaisedButton(
             child: Text('Done'),
             color: Theme.of(context).primaryColor,
@@ -118,11 +125,19 @@ class _AddToMyShardsState extends State<AddToMyShards> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(20),
-                child: RaisedButton(
-                  onPressed: _nameModal,
-                  child: Text('Save'),
-                )
+                padding: EdgeInsets.all(20)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+              RaisedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('Back'),
+                ),
+              RaisedButton(
+                    onPressed: _nameModal,
+                    child: Text('Save'),
+                  )
+              ],
             ),
             Padding(padding: EdgeInsets.all(20),)
           ],

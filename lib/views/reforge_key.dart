@@ -68,7 +68,6 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
     } else if (qrText != '') {
         if (shares.length > 1) {
           return 'Scan Successful!\n ${shares.length} Shards have been collected.';
-          //TODO change text to centered
         } else {
           return 'Scan Successful!\n ${shares.length} Shard has been collected.';
         }
@@ -78,9 +77,6 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
   }
 
   void reforge() {
-    // if (secret == '') {
-    //   showSnackBar('Test');
-    // }
     try {
     List<int> recombinedSecretInBytes = ss.combineShares(shares);
     final reforgedsecret = utf8.decode(recombinedSecretInBytes);
@@ -94,14 +90,19 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
     } catch(e) {
       if (shares.length < 1) {
         showSnackBar("You haven't scanned any shards");
-      }
+      } else {
        showSnackBar('You do not have the required shards to reforge this key');
+      }
     }
   }
 
   showSnackBar(error) {
   final snackBar = SnackBar(
-    content: Text(error),
+    content: Text(error,
+    style: TextStyle(fontFamily: 
+     'Exo 2'),
+    textAlign: TextAlign.center
+    ),
     duration: Duration(seconds: 2),
     );
   _scaffoldKey.currentState.showSnackBar(snackBar);
@@ -121,9 +122,9 @@ class _ReforgeKeyState extends State<ReforgeKey> with SingleTickerProviderStateM
                 child: Container(
                   height: 35,
                   child: Text(scanSuccessful(),
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: animation.value,
-
                     ),
                   ),
                 ),

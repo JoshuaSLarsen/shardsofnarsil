@@ -42,6 +42,8 @@ class MyApp extends StatelessWidget {
           
 
         // TODO Create Android Launcher Icon, It currently has white background. 
+        // TODO create a splash page
+        // TODO Add a disclaimer?
 
       ),
       home: Home(),

@@ -21,7 +21,6 @@ class MyShardsState extends State<MyShards> {
 
   saveShards(shard) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(shard);
 
     //Set Shard
     if (prefs.getStringList('shards') != null) {
@@ -67,13 +66,15 @@ class MyShardsState extends State<MyShards> {
   openCamera() async {
     final result = await
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddToMyShards()));
-    saveShards(result);
+    if (result != null) {
+      saveShards(result);
+    }
   }
 
   buildRow() {
     if (names.length < 1) {
       return 
-      ListView.builder(      
+      ListView.builder(   
           padding: const EdgeInsets.fromLTRB(120.0, 40, 20, 10),
           itemCount: myShards.length,
           itemBuilder: (BuildContext context, int index) =>Text(myShards[0])
@@ -81,6 +82,7 @@ class MyShardsState extends State<MyShards> {
     } else {
       return 
         ListView.builder(
+          key: Key(names.toString()),   
           padding: const EdgeInsets.all(20.0),
           itemCount: myShards.length,
           itemBuilder: (BuildContext context, int index) =>ShardRow(this.names[index], this.myShards[index], this.refresh)

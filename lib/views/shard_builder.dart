@@ -59,7 +59,11 @@ void secret() {
 
 showSnackBar(error) {
   final snackBar = SnackBar(
-    content: Text(error),
+    content: Text(error,
+    textAlign: TextAlign.center,
+    style: TextStyle(fontFamily: 
+     'Exo 2')
+    ),
     duration: Duration(seconds: 2),
     );
   _scaffoldKey.currentState.showSnackBar(snackBar);
@@ -246,7 +250,8 @@ nameShard(key, value) {
           child: ListBody(
             children: <Widget>[
               TextField(
-                onChanged: handleChange
+                onChanged: handleChange,
+                maxLength: 30,
               ),
             ],
           ),

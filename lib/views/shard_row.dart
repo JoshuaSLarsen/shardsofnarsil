@@ -10,6 +10,7 @@ class ShardRow extends StatefulWidget {
   final String myShards;
   final Function() getShards;
 
+
   ShardRow(this.name, this.myShards, this.getShards);
 
   @override
@@ -41,17 +42,14 @@ void generateQRCode(key, value) {
 }
 
 getKey() {
-  print(myShards.split(": ")[0]);
   return myShards.split(": ")[0];
 }
 
 getValue() {
-  print(myShards.split(": ")[1]);
   return myShards.split(": ")[1];
 }
 
   destroyShards(name, shard) async {
-    //TODO currently when deleting a shard that isn't on the bottom, it appears to delete the wrong one, although it does delete the correct shard.
     SharedPreferences shardName = await SharedPreferences.getInstance();
     var names = shardName.getStringList('names');
     if (names.contains(name)) {
@@ -66,8 +64,6 @@ getValue() {
       prefs.setStringList('shards', shards);
     }
     widget.getShards();
-    print(names);
-    print(shards);
   }
 
   @override
@@ -82,36 +78,46 @@ getValue() {
             colors: [Colors.grey[400], Colors.blueGrey[500]],
             ),
           borderRadius: BorderRadius.circular(20),
-
         ),
         padding: EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget> [
-            CircleAvatar(
-              child: Text(name[0]),
-              backgroundColor: Theme.of(context).primaryColorDark,
-              ),
-            Padding(padding: EdgeInsets.only(right: 10.0)),
-            Text(name),
-            FlatButton(
-              onPressed: () {
-                generateQRCode(getKey(), getValue());
-              },
-              child: Icon(
-                Icons.photo_camera,
-                color: Theme.of(context).accentColor,
-                size: 30, 
-              )
+            Expanded(
+              flex: 2,
+              child: CircleAvatar(
+                child: Text(name[0]),
+                backgroundColor: Theme.of(context).primaryColorDark,
+                ),
             ),
-            FlatButton(
-              onPressed: () => destroyShards(name, myShards),
-              padding: EdgeInsets.all(2.0),
-              child: Icon(
-                Icons.delete,
-                color: Theme.of(context).accentColor,
-                size: 30,
-              )
+            Expanded(
+              flex: 6,
+              child: Text(name)
+            ),
+            Expanded(
+              flex: 2,
+              child: FlatButton(
+                onPressed: () {
+                  generateQRCode(getKey(), getValue());
+                },
+                child: Icon(
+                  Icons.photo_camera,
+                  color: Theme.of(context).accentColor,
+                  size: 30, 
+                 )
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: FlatButton(
+                onPressed: () => destroyShards(name, myShards),
+                padding: EdgeInsets.all(2.0),
+                child: Icon(
+                  Icons.delete,
+                  color: Theme.of(context).accentColor,
+                  size: 30,
+                )
+              ),
             ),
           ]
         )
