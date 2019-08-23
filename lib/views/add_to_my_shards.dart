@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/animation.dart';
 
-
 class AddToMyShards extends StatefulWidget {
   @override
   _AddToMyShardsState createState() => _AddToMyShardsState();
